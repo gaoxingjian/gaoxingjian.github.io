@@ -1777,6 +1777,7 @@ pre code {
   color: #f06292;
   display: inline-block;
   margin: 0 5px;
+  animation: icon-animate 1.33s ease-in-out infinite;
 }
 @-moz-keyframes icon-animate {
   0%, 100% {
@@ -3084,7 +3085,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #6cff1d;
+  background: #9614af;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3122,4 +3123,8 @@ hr {
 }
 .logo-line {
   display: none;
+}
+code {
+  color: #c7254e;
+  background-color: #f9f2f4;
 }
