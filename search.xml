@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Hello World</title>
+    <url>/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<a id="more"></a>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>hello</title>
+    <url>/hello/</url>
+    <content><![CDATA[<h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello world"></a>hello world</h2><a id="more"></a>
+<p>asdasd😄撒打算的asdasd撒打算 阿斯顿 asd</p>
+<video src="https://example.com/sample.mp4" preload="metadata" controlslist="nodownload" controls playsinline poster=""></video>
+
+
+
+
+
+<p><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" alt="as"></p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">uncategorized</span>  <span class="comment">#預設分類</span></span><br><span class="line"><span class="attr">category_map:</span>  <span class="comment">#分類別名，和文章標題類似意思，分為「給人看的」和「給網址看的」</span></span><br><span class="line"><span class="attr">tag_map:</span>  <span class="comment">#標籤別名，分為「給人看的」和「給網址看的」</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># [下面這個是範例，設定方式為 &quot;給人看的&quot;: &quot;給網址看的&quot;]</span></span><br><span class="line"><span class="comment"># Category &amp; Tag</span></span><br><span class="line"><span class="attr">default_category:</span> <span class="string">未分類</span></span><br><span class="line"><span class="attr">category_map:</span></span><br><span class="line">  <span class="string">開箱文:</span> <span class="string">unboxing</span></span><br><span class="line">  <span class="string">未分類:</span> <span class="string">uncategorized</span></span><br><span class="line"><span class="attr">tag_map:</span></span><br><span class="line">  <span class="string">日記:</span> <span class="string">daily</span></span><br><span class="line">  <span class="string">美食:</span> <span class="string">food</span></span><br></pre></td></tr></table></figure>
+]]></content>
+  </entry>
+</search>
