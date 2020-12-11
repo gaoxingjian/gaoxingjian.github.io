@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.15.1/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.css">
+  <script src="//cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.js"></script>
+
+<script class="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"xjgao.com","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
+  </script>
+<meta name="description" content="源码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ICFG_Reentrancy">
+<meta property="og:url" content="https://xjgao.com/ICFG-Reentrancy/index.html">
+<meta property="og:site_name" content="Jason&#39;s Blog">
+<meta property="og:description" content="源码">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-12-11T08:13:53.000Z">
+<meta property="article:modified_time" content="2020-12-11T08:47:37.070Z">
+<meta property="article:author" content="Jason Gao">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://xjgao.com/ICFG-Reentrancy/">
+
+
+<script data-pjax class="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script><script src="/lib/fireworks.js"></script>
+<title>ICFG_Reentrancy | Jason's Blog</title>
+  
+
+
+
+  <noscript>
+  <style>
+  body { margin-top: 2rem; }
+
+  .use-motion .menu-item,
+  .use-motion .sidebar,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header {
+    visibility: visible;
+  }
+
+  .use-motion .header,
+  .use-motion .site-brand-container .toggle,
+  .use-motion .footer { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle,
+  .use-motion .custom-logo-image {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line {
+    transform: scaleX(1);
+  }
+
+  .search-pop-overlay, .sidebar-nav { display: none; }
+  .sidebar-panel { display: block; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Jason's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <h1 class="site-title">Jason's Blog</h1>
+      <i class="logo-line"></i>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu">
+        <li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li>
+        <li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a></li>
+        <li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li>
+        <li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li>
+        <li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ICFG-Reentrancy-py"><span class="nav-number">1.</span> <span class="nav-text">ICFG_Reentrancy.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#smallUtils-py"><span class="nav-number">2.</span> <span class="nav-text">smallUtils.py</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#testDFS-py"><span class="nav-number">3.</span> <span class="nav-text">testDFS.py</span></a></li></ol></div>
+        </section>
+        <!--/noindex-->
+
+        <section class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Jason Gao"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Jason Gao</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/gaoxingjian" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;gaoxingjian" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:xingjian.gao@outlook.com" title="E-Mail → mailto:xingjian.gao@outlook.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+  <div class="cc-license site-overview-item animated" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      友情链接
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="http://clairvoyance.xjgao.com/" title="http:&#x2F;&#x2F;clairvoyance.xjgao.com" rel="noopener" target="_blank">clairvoyance</a>
+        </li>
+    </ul>
+  </div>
+
+        </section>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://xjgao.com/ICFG-Reentrancy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jason Gao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ICFG_Reentrancy
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2020-12-11 16:13:53 / 修改时间：16:47:37" itemprop="dateCreated datePublished" datetime="2020-12-11T16:13:53+08:00">2020-12-11</time>
+    </span>
+
+  
+    <span id="/ICFG-Reentrancy/" class="post-meta-item leancloud_visitors" data-flag-title="ICFG_Reentrancy" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/ICFG-Reentrancy/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/ICFG-Reentrancy/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>19k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>18 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>源码</p>
+<a id="more"></a>
+
+<h2 id="ICFG-Reentrancy-py"><a href="#ICFG-Reentrancy-py" class="headerlink" title="ICFG_Reentrancy.py"></a>ICFG_Reentrancy.py</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> slither.detectors.abstract_detector <span class="keyword">import</span> (AbstractDetector, DetectorClassification)</span><br><span class="line"><span class="keyword">from</span> slither.core.cfg.node <span class="keyword">import</span> NodeType</span><br><span class="line"><span class="keyword">from</span> slither.slithir.operations <span class="keyword">import</span> (HighLevelCall, LowLevelCall, LibraryCall, Send, Transfer)</span><br><span class="line"><span class="keyword">from</span> slither.analyses.data_dependency.data_dependency <span class="keyword">import</span> is_tainted</span><br><span class="line"><span class="keyword">from</span> slither.slithir.variables.constant <span class="keyword">import</span> Constant</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> slither.core.callGraph.CallGraph <span class="keyword">import</span> CallGraph</span><br><span class="line"><span class="keyword">from</span> slither.core.declarations.function <span class="keyword">import</span> Function</span><br><span class="line"><span class="keyword">from</span> slither.detectors.callGraph_cfg_Reentrancy.DM <span class="keyword">import</span> DM</span><br><span class="line"><span class="keyword">from</span> slither.detectors.callGraph_cfg_Reentrancy.DM <span class="keyword">import</span> allPaths_intToNode</span><br><span class="line"><span class="keyword">from</span> slither.detectors.callGraph_cfg_Reentrancy.Graph <span class="keyword">import</span> MyGraph</span><br><span class="line"><span class="keyword">from</span> slither.detectors.callGraph_cfg_Reentrancy.getAallPaths <span class="keyword">import</span> (getIcfgAllPath, getCfgAllPath)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> slither.detectors.ICFG_Reentrancy.icfg.ICFG <span class="keyword">import</span> ICFG</span><br><span class="line"><span class="keyword">from</span> slither.detectors.ICFG_Reentrancy.smallUtils <span class="keyword">import</span> (getadjMatrix, getICFGadjMatrix)</span><br><span class="line"><span class="keyword">from</span> slither.detectors.ICFG_Reentrancy.testDFS <span class="keyword">import</span> MyDeepGraph</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">callerVisibilityHavePublic</span>(<span class="params">function, callGraph</span>):</span></span><br><span class="line">    functionNode = callGraph.function_Map_node.get(function)</span><br><span class="line">    <span class="comment"># if function.full_name == &quot;releaseTokensTo(address)&quot; and function.contract.name == &quot;Reservation&quot;:</span></span><br><span class="line">    <span class="comment">#     print(&quot;马明亮&quot;)``</span></span><br><span class="line">    <span class="comment">#     print(functionNode)</span></span><br><span class="line">    <span class="comment">#     print(functionNode.fathers)</span></span><br><span class="line">    <span class="keyword">for</span> father <span class="keyword">in</span> functionNode.fathers:</span><br><span class="line">        <span class="keyword">if</span> father.function.visibility == <span class="string">&#x27;public&#x27;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">if</span> callerVisibilityHavePublic(father.function, callGraph):</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">Allnodes</span>(<span class="params">slither</span>):</span></span><br><span class="line">    allnodes = []</span><br><span class="line">    <span class="keyword">for</span> function <span class="keyword">in</span> slither.functions:</span><br><span class="line">        allnodes.extend(function.nodes)</span><br><span class="line">    <span class="keyword">return</span> allnodes</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ICfgReentrancy</span>(<span class="params">AbstractDetector</span>):</span></span><br><span class="line">    ARGUMENT = <span class="string">&#x27;ICfgReentrancy&#x27;</span></span><br><span class="line">    HELP = <span class="string">&#x27;Benign reentrancy vulnerabilities&#x27;</span></span><br><span class="line">    IMPACT = DetectorClassification.LOW</span><br><span class="line">    CONFIDENCE = DetectorClassification.MEDIUM</span><br><span class="line"></span><br><span class="line">    WIKI = <span class="string">&#x27;https://github.com/crytic/slither/wiki/Detector-Documentation#reentrancy-vulnerabilities-2&#x27;</span></span><br><span class="line"></span><br><span class="line">    WIKI_TITLE = <span class="string">&#x27;Reentrancy vulnerabilities&#x27;</span></span><br><span class="line">    WIKI_DESCRIPTION = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    Detection of the [re-entrancy bug](https://github.com/trailofbits/not-so-smart-contracts/tree/master/reentrancy).</span></span><br><span class="line"><span class="string">    Only report reentrancy that acts as a double call (see `reentrancy-eth`, `reentrancy-no-eth`).&#x27;&#x27;&#x27;</span></span><br><span class="line">    WIKI_EXPLOIT_SCENARIO = <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    ```solidity</span></span><br><span class="line"><span class="string">        function callme()&#123;</span></span><br><span class="line"><span class="string">            if( ! (msg.sender.call()() ) )&#123;</span></span><br><span class="line"><span class="string">                throw;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">            counter += 1</span></span><br><span class="line"><span class="string">        &#125;   </span></span><br><span class="line"><span class="string">    ```</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    `callme` contains a reentrancy. The reentrancy is benign because it&#x27;s exploitation would have the same effect as two consecutive calls.&#x27;&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line">    WIKI_RECOMMENDATION = <span class="string">&#x27;Apply the [check-effects-interactions pattern](http://solidity.readthedocs.io/en/v0.4.21/security-considerations.html#re-entrancy).&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_detect</span>(<span class="params">self</span>):</span></span><br><span class="line">        icfg = ICFG(self.slither)</span><br><span class="line">        icfg.build_ICFG()</span><br><span class="line">        ethNodeList, taintNodeList, cfgEndNodeList = self.getAllEthNode_AllTaintNode()</span><br><span class="line">        callGraph = CallGraph(self.slither)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> c <span class="keyword">in</span> self.contracts:</span><br><span class="line">            self.detect_reentrancy(c, ethNodeList, taintNodeList, icfg, callGraph, cfgEndNodeList)</span><br><span class="line">        <span class="keyword">return</span> []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">detect_reentrancy</span>(<span class="params">self, contract, ethNodeList, taintNodeList, icfg, callGraph, cfgEndNodeList</span>):</span></span><br><span class="line">        print(<span class="string">&#x27;Start Contract &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(contract.name))</span><br><span class="line">        <span class="keyword">for</span> function <span class="keyword">in</span> contract.functions:</span><br><span class="line">            <span class="keyword">if</span> function.is_implemented:</span><br><span class="line">                print(<span class="string">&#x27;\tTo analyze: &#123;&#125;.&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(function.contract.name, function.full_name))</span><br><span class="line">                dm = DM(function)   <span class="comment"># 声明dm防御对象</span></span><br><span class="line">                reentrancyFlag = <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">                functon_taintNodeList = []  <span class="comment"># 存储本函数体内的taint</span></span><br><span class="line">                <span class="keyword">for</span> node <span class="keyword">in</span> function.nodes:</span><br><span class="line">                    <span class="keyword">if</span> node <span class="keyword">in</span> taintNodeList:</span><br><span class="line">                        functon_taintNodeList.append(node)</span><br><span class="line"></span><br><span class="line">                <span class="keyword">for</span> function_taintNode <span class="keyword">in</span> functon_taintNodeList:</span><br><span class="line">                    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                    startToend = [start, ... ,end]</span></span><br><span class="line"><span class="string">                    &#x27;&#x27;&#x27;</span></span><br><span class="line">                    cfgEntryNodeTotaint = []</span><br><span class="line">                    cfgEntryNodeTotaint.append(function.entry_point)</span><br><span class="line">                    cfgEntryNodeTotaint.extend(<span class="built_in">list</span>(<span class="built_in">set</span>(function.nodes) - <span class="built_in">set</span>([function.entry_point, function_taintNode])))</span><br><span class="line">                    cfgEntryNodeTotaint.append(function_taintNode)</span><br><span class="line"></span><br><span class="line">                    <span class="comment"># cfgAllPath = getCfgAllPath(cfgEntryNodeTotaint)</span></span><br><span class="line">                    adjMatrix = getadjMatrix(cfgEntryNodeTotaint)</span><br><span class="line">                    mydeepGraph = MyDeepGraph(<span class="built_in">len</span>(cfgEntryNodeTotaint))</span><br><span class="line">                    mydeepGraph.setadjMetrix(adjMatrix)</span><br><span class="line">                    cfgAllPath = mydeepGraph.getPathofTwoNode(<span class="number">0</span>, <span class="built_in">len</span>(cfgEntryNodeTotaint)-<span class="number">1</span>)</span><br><span class="line">                    cfgAllPath_Node = allPaths_intToNode(cfgAllPath, cfgEntryNodeTotaint)</span><br><span class="line"></span><br><span class="line">                    cfgCandidateAllPath_Node = []</span><br><span class="line">                    <span class="keyword">for</span> path <span class="keyword">in</span> cfgAllPath_Node[:]:</span><br><span class="line">                       <span class="keyword">if</span> <span class="built_in">any</span>(iNode <span class="keyword">in</span> ethNodeList <span class="keyword">for</span> iNode <span class="keyword">in</span> path):</span><br><span class="line">                           cfgCandidateAllPath_Node.append(path)</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> cfgCandidateAllPath_Node:   <span class="comment"># 证明cfg本身就找到Reentrancy了，准备humanlook, 注意reversed, DM</span></span><br><span class="line"></span><br><span class="line">                        human_cfgCandidateAllPath_Node = []</span><br><span class="line">                        <span class="keyword">for</span> path <span class="keyword">in</span> cfgCandidateAllPath_Node:</span><br><span class="line">                            tempPath = []</span><br><span class="line">                            <span class="keyword">for</span> everyNode <span class="keyword">in</span> path:</span><br><span class="line">                                <span class="keyword">if</span> everyNode.<span class="built_in">type</span> == NodeType.ENTRYPOINT:</span><br><span class="line">                                    everyNode.add_expression(<span class="string">&#x27;entryPoint&#x27;</span>)</span><br><span class="line">                                tempPath.append(<span class="built_in">str</span>(everyNode.expression))</span><br><span class="line">                            human_cfgCandidateAllPath_Node.append(tempPath)</span><br><span class="line">                        advanceUpdateFlag = <span class="literal">False</span>  <span class="comment"># dm.advancedUpdateEth(function)</span></span><br><span class="line">                        privateVisibility = dm.privateVisibility(function)</span><br><span class="line">                        havePublicCaller = callerVisibilityHavePublic(function, callGraph)</span><br><span class="line">                        <span class="keyword">if</span> privateVisibility <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                            <span class="keyword">if</span> havePublicCaller <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                                reentrancyFlag = <span class="literal">True</span></span><br><span class="line">                                print(<span class="string">&#x27;\t\tcontract: &#123;&#125; | function: &#123;&#125; | private: &#123;&#125; | publicCaller: &#123;&#125; | Execution Locks and Eth money balance modification: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">                                    function.contract.name, function.full_name, privateVisibility, havePublicCaller, advanceUpdateFlag))</span><br><span class="line">                                <span class="keyword">for</span> human_cfgCandidatePath_Node <span class="keyword">in</span> human_cfgCandidateAllPath_Node:</span><br><span class="line">                                    print(<span class="string">&#x27;\t\t\tpath: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(human_cfgCandidatePath_Node))</span><br><span class="line">                        <span class="keyword">else</span>:</span><br><span class="line">                            reentrancyFlag = <span class="literal">True</span></span><br><span class="line">                            print(</span><br><span class="line">                                <span class="string">&#x27;\t\tcontract: &#123;&#125; | function: &#123;&#125; | private: &#123;&#125; | Execution Locks and Eth money balance modification: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">                                    function.contract.name, function.full_name, privateVisibility, advanceUpdateFlag))</span><br><span class="line">                            <span class="keyword">for</span> human_cfgCandidatePath_Node <span class="keyword">in</span> human_cfgCandidateAllPath_Node:</span><br><span class="line">                                print(<span class="string">&#x27;\t\t\tpath: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(human_cfgCandidatePath_Node))</span><br><span class="line">                <span class="keyword">if</span> reentrancyFlag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                    print(<span class="string">&#x27;[cfg_Reentrancy in] contract: &#123;&#125; . function: &#123;&#125; | &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(function.contract.name, function.full_name, function.source_mapping_str))</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> reentrancyFlag <span class="keyword">is</span> <span class="literal">False</span>:  <span class="comment"># 证明cfg本身没找到Reentrancy</span></span><br><span class="line">                    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                    bug修复为了把当前的function的endnode的回调用处的那条路径删除，同时也要删除本函数entryNode的icfgFather</span></span><br><span class="line"><span class="string">                    &#x27;&#x27;&#x27;</span></span><br><span class="line">                    print(<span class="string">&#x27;\t\tCFG analysis is safe, so start analyzing XCFG&#x27;</span>.<span class="built_in">format</span>(function.full_name))</span><br><span class="line">                    <span class="comment"># = function.entry_point.icfgFathers</span></span><br><span class="line">                    <span class="comment"># function.entry_point.set_icfgFather([])</span></span><br><span class="line">                    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                    endnodeMapBackSons = &#123;&#125;</span></span><br><span class="line"><span class="string">                    # hh = [str(endnode.expression) for endnode in function.ENDnodes]</span></span><br><span class="line"><span class="string">                    # print(&#x27;结束点：&#x27;.format(hh))</span></span><br><span class="line"><span class="string">                    for endnode in function.ENDnodes:</span></span><br><span class="line"><span class="string">                        endnodeMapBackSons[endnode] = []</span></span><br><span class="line"><span class="string">                        for son in endnode.backIcfgSons:</span></span><br><span class="line"><span class="string">                            endnodeMapBackSons[endnode].append(son)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">                    for endnode in function.ENDnodes:</span></span><br><span class="line"><span class="string">                        endnode.set_backIcfgSons([])</span></span><br><span class="line"><span class="string">                    &#x27;&#x27;&#x27;</span></span><br><span class="line">                    <span class="comment"># tt = [str(taintNode.expression) for taintNode in taintNodeList]</span></span><br><span class="line">                    <span class="comment"># print(&#x27;系统中所有的taint：&#123;&#125;, 总共有 &#123;&#125; 个taintNode&#x27;.format(tt, len(taintNodeList)))</span></span><br><span class="line">                    <span class="comment"># for endnode in function.ENDnodes:</span></span><br><span class="line">                    <span class="comment">#     print(&#x27;回到哪里了: &#123;&#125;&#x27;.format(endnodeMapBackSons[endnode]))</span></span><br><span class="line">                    <span class="comment"># for endnode in function.ENDnodes:</span></span><br><span class="line">                    <span class="comment">#     print(&#x27;注意应该是0：&#123;&#125;&#x27;.format(len(endnode.backIcfgSons)))</span></span><br><span class="line">                    <span class="keyword">for</span> taintNode <span class="keyword">in</span> taintNodeList:</span><br><span class="line">                        icfgEntryNodeTotaint = []</span><br><span class="line">                        icfgEntryNodeTotaint.append(function.entry_point)</span><br><span class="line">                        icfgEntryNodeTotaint.extend(<span class="built_in">list</span>(<span class="built_in">set</span>(icfg.allNodes) - <span class="built_in">set</span>([function.entry_point, taintNode])))</span><br><span class="line">                        icfgEntryNodeTotaint.append(taintNode)</span><br><span class="line"></span><br><span class="line">                        adjMatrix = getICFGadjMatrix(icfgEntryNodeTotaint)</span><br><span class="line"></span><br><span class="line">                        mydeepGraph = MyDeepGraph(<span class="built_in">len</span>(icfgEntryNodeTotaint))</span><br><span class="line">                        mydeepGraph.setadjMetrix(adjMatrix)</span><br><span class="line">                        <span class="comment">#mydeepGraph.printMatrix()</span></span><br><span class="line">                        icfgAllPath = mydeepGraph.getPathofTwoNode(<span class="number">0</span>, <span class="built_in">len</span>(icfgEntryNodeTotaint) - <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">                        icfgAllPath_Node = allPaths_intToNode(icfgAllPath, icfgEntryNodeTotaint)</span><br><span class="line"></span><br><span class="line">                        <span class="comment">#icfgAllPath = getIcfgAllPath(icfgEntryNodeTotaint)</span></span><br><span class="line">                        <span class="comment"># print(&#x27;函数&#123;&#125;的入口点到taint点&#123;&#125;的路径有&#123;&#125;条：&#x27;.format(function.full_name, taintNode.expression, len(icfgAllPath)))</span></span><br><span class="line">                        <span class="comment">#icfgAllPath_Node = allPaths_intToNode(icfgAllPath, icfgEntryNodeTotaint)</span></span><br><span class="line">                        <span class="comment"># print(&#x27;应该为1：&#123;&#125;&#x27;.format(len(icfgAllPath_Node)))</span></span><br><span class="line">                        <span class="comment"># qq = [[str(ww.expression) for ww in yy] for yy in icfgAllPath_Node]</span></span><br><span class="line">                        <span class="comment"># print(&#x27;路径：&#123;&#125;&#x27;.format(qq))</span></span><br><span class="line">                        icfgCandidateAllPath_Node = []</span><br><span class="line"></span><br><span class="line">                        <span class="keyword">for</span> path <span class="keyword">in</span> icfgAllPath_Node:</span><br><span class="line">                            <span class="keyword">if</span> <span class="built_in">any</span>(iNode <span class="keyword">in</span> ethNodeList <span class="keyword">for</span> iNode <span class="keyword">in</span> path):</span><br><span class="line">                                icfgCandidateAllPath_Node.append(path)</span><br><span class="line"></span><br><span class="line">                        <span class="comment"># if icfgCandidateAllPaht_Node:</span></span><br><span class="line">                        <span class="comment">#     # 检查icfg路径合法性</span></span><br><span class="line">                        <span class="comment">#     cfgEndNodeList_exp = list(set(cfgEndNodeList) - set(function.ENDnodes))</span></span><br><span class="line">                        <span class="comment">#     for path in icfgCandidateAllPaht_Node:</span></span><br><span class="line">                        <span class="comment">#         new = path[-1]</span></span><br><span class="line">                        <span class="comment">#         for node in path:</span></span><br><span class="line">                        <span class="comment">#             if node in cfgEndNodeList_exp:</span></span><br><span class="line">                        <span class="comment">#                 for entryP in node.icfgSons:</span></span><br><span class="line">                        <span class="comment">#                     for preEndNode in entryP.function.ENDnodes:</span></span><br><span class="line">                        <span class="comment">#                         if preEndNode in path:</span></span><br><span class="line">                        <span class="comment">#                             if (path.index(preEndNode) + 1) &lt;= len(path)-1:</span></span><br><span class="line">                        <span class="comment">#                                 possibleErrNodeIndex = path.index(preEndNode) + 1</span></span><br><span class="line">                        <span class="comment">#                                 possibleErrNode = path[possibleErrNodeIndex]</span></span><br><span class="line">                        <span class="comment">#                                 if possibleErrNode != node:</span></span><br><span class="line">                        <span class="comment">#                                     # path.append(&#x27;非法路径&#x27;)</span></span><br><span class="line">                        <span class="comment">#                                     pass</span></span><br><span class="line">                        <span class="comment">#</span></span><br><span class="line">                        <span class="comment">#</span></span><br><span class="line">                        <span class="comment">#             if node in function.ENDnodes:</span></span><br><span class="line">                        <span class="comment">#                 if path[-1] != node:</span></span><br><span class="line">                        <span class="comment">#                     # 非法路径</span></span><br><span class="line">                        <span class="comment">#                     pass</span></span><br><span class="line">                        <span class="keyword">if</span> icfgCandidateAllPath_Node:    <span class="comment"># 证明icfg本身找到Reentrancy了，准备humanlook, DM</span></span><br><span class="line"></span><br><span class="line">                            <span class="comment"># print(&#x27;证明icfg本身找到Reentrancy了，准备humanlook, DM&#x27;)</span></span><br><span class="line">                            <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                            转变成普通人能看懂的形式，注意reversed</span></span><br><span class="line"><span class="string">                            &#x27;&#x27;&#x27;</span></span><br><span class="line">                            human_icfgCandidateAllPath_Node = []</span><br><span class="line">                            <span class="keyword">for</span> path <span class="keyword">in</span> icfgCandidateAllPath_Node:</span><br><span class="line">                                tempPath = []</span><br><span class="line">                                <span class="keyword">for</span> everyNode <span class="keyword">in</span> path:</span><br><span class="line">                                    <span class="keyword">if</span> everyNode.<span class="built_in">type</span> == NodeType.ENTRYPOINT:</span><br><span class="line">                                        everyNode.add_expression(<span class="string">&#x27;entryPoint&#x27;</span>)</span><br><span class="line">                                    tempPath.append(<span class="built_in">str</span>(everyNode.expression))</span><br><span class="line">                                human_icfgCandidateAllPath_Node.append(tempPath)</span><br><span class="line">                            etherNodesInPath = []</span><br><span class="line">                            <span class="comment"># for path in icfgCandidateAllPaht_Node:</span></span><br><span class="line">                            <span class="comment">#     for itemNode in path:</span></span><br><span class="line">                            <span class="comment">#         if itemNode in ethNodeList:</span></span><br><span class="line">                            <span class="comment">#             etherNodesInPath.append(itemNode)</span></span><br><span class="line">                            etherNodesInPath = [itemNode <span class="keyword">for</span> path <span class="keyword">in</span> icfgCandidateAllPath_Node <span class="keyword">for</span> itemNode <span class="keyword">in</span> path <span class="keyword">if</span> itemNode <span class="keyword">in</span> ethNodeList]</span><br><span class="line">                            <span class="comment"># print(&#x27;长度：&#123;&#125;&#x27;.format(len(etherNodesInPath)))</span></span><br><span class="line">                            <span class="comment"># kkk = [str(etherNodeInPath.expression) for etherNodeInPath in etherNodesInPath]</span></span><br><span class="line">                            <span class="comment"># print(&#x27;在路径中的转账节点：&#123;&#125;&#x27;.format(kkk))</span></span><br><span class="line">                            realETHfunctionList = [eNode.function <span class="keyword">for</span> eNode <span class="keyword">in</span> etherNodesInPath]</span><br><span class="line">                            <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                            if all(dm.advancedUpdateEth(function) for function in realETHfunctionList):</span></span><br><span class="line"><span class="string">                                advanceUpdateFlag = True</span></span><br><span class="line"><span class="string">                            else:</span></span><br><span class="line"><span class="string">                                advanceUpdateFlag = False</span></span><br><span class="line"><span class="string">                            &#x27;&#x27;&#x27;</span></span><br><span class="line">                            advanceUpdateFlag = <span class="literal">False</span></span><br><span class="line">                            <span class="comment">#advanceUpdateFlag = dm.advancedUpdateEth(function)</span></span><br><span class="line">                            privateVisibility = dm.privateVisibility(function)</span><br><span class="line">                            havePublicCaller = callerVisibilityHavePublic(function, callGraph)</span><br><span class="line"></span><br><span class="line">                            <span class="keyword">if</span> privateVisibility <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                                <span class="keyword">if</span> havePublicCaller <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                                    reentrancyFlag = <span class="literal">True</span></span><br><span class="line">                                    print(</span><br><span class="line">                                        <span class="string">&#x27;\t\tcontract: &#123;&#125; | function: &#123;&#125; | private: &#123;&#125; | publicCaller: &#123;&#125; | Execution Locks and Eth money balance modification: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">                                            function.contract.name, function.full_name, privateVisibility, havePublicCaller, advanceUpdateFlag))</span><br><span class="line">                                    <span class="keyword">for</span> human_icfgCandidatePath_Node <span class="keyword">in</span> human_icfgCandidateAllPath_Node:</span><br><span class="line">                                        print(<span class="string">&#x27;\t\t\tpath: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(human_icfgCandidatePath_Node))</span><br><span class="line">                            <span class="keyword">else</span>:</span><br><span class="line">                                reentrancyFlag = <span class="literal">True</span></span><br><span class="line">                                print(</span><br><span class="line">                                    <span class="string">&#x27;\t\tcontract: &#123;&#125; | function: &#123;&#125; | private: &#123;&#125; | Execution Locks and Eth money balance modification: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(</span><br><span class="line">                                        function.contract.name, function.full_name, privateVisibility, advanceUpdateFlag))</span><br><span class="line">                                <span class="keyword">for</span> human_icfgCandidatePath_Node <span class="keyword">in</span> human_icfgCandidateAllPath_Node:</span><br><span class="line">                                    print(<span class="string">&#x27;\t\t\tpath: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(human_icfgCandidatePath_Node))</span><br><span class="line">                    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">                    为了把当前的function的endnode的回调用处的那条路径再补上, 和entryNode的icfgFather叶去掉</span></span><br><span class="line"><span class="string">                    &#x27;&#x27;&#x27;</span></span><br><span class="line">                    <span class="comment"># if endnodeMapBackSons:</span></span><br><span class="line">                    <span class="comment">#     for endnode in function.ENDnodes:</span></span><br><span class="line">                    <span class="comment">#         endnode.set_backIcfgSons = endnodeMapBackSons[endnode]</span></span><br><span class="line">                    <span class="comment">#function.entry_point.set_icfgFather = icfgFathersNeedToDuan</span></span><br><span class="line">                <span class="keyword">if</span> reentrancyFlag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                    print(<span class="string">&#x27;[icfg_Reentrancy in] contract: &#123;&#125; . function: &#123;&#125; | &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(function.contract.name, function.name, function.source_mapping_str))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getAllEthNode_AllTaintNode</span>(<span class="params">self</span>):</span></span><br><span class="line">        ethNodeList = []</span><br><span class="line">        taintNodeList = []</span><br><span class="line">        cfgEndNodeList = []</span><br><span class="line">        <span class="keyword">for</span> function <span class="keyword">in</span> self.slither.functions:</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> function.nodes:</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">len</span>(node.sons) == <span class="number">0</span>:</span><br><span class="line">                    node.isEND = <span class="literal">True</span></span><br><span class="line">                    function.ENDnodes.append(node)</span><br><span class="line">                    cfgEndNodeList.append(node)</span><br><span class="line">                <span class="keyword">if</span> self._can_send_eth(node.irs):</span><br><span class="line">                    ethNodeList.append(node)</span><br><span class="line">                    function.ethNodes.append(node)</span><br><span class="line">                <span class="keyword">if</span> self._node_taint(node):</span><br><span class="line">                    taintNodeList.append(node)</span><br><span class="line">        <span class="keyword">return</span> ethNodeList, taintNodeList, cfgEndNodeList</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_can_send_eth</span>(<span class="params">self, irs</span>):</span></span><br><span class="line">        <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">            Detect if the node can send eth</span></span><br><span class="line"><span class="string">        &quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> ir <span class="keyword">in</span> irs:</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">isinstance</span>(ir, (HighLevelCall, LowLevelCall, Transfer, Send)):</span><br><span class="line">                <span class="keyword">if</span> ir.call_value:</span><br><span class="line">                    <span class="comment"># print(type(ir.call_value))  # &lt;class &#x27;slither.slithir.variables.constant.Constant&#x27;&gt;</span></span><br><span class="line">                    <span class="comment"># print(str(ir.call_value))</span></span><br><span class="line">                    <span class="keyword">if</span> <span class="built_in">isinstance</span>(ir.call_value, Constant) <span class="keyword">and</span> <span class="built_in">str</span>(ir.call_value) == <span class="string">&#x27;0&#x27;</span>:</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">_node_taint</span>(<span class="params">self, node</span>):</span></span><br><span class="line">        <span class="keyword">if</span> node.high_level_calls <span class="keyword">or</span> node.low_level_calls:</span><br><span class="line">            <span class="keyword">for</span> ir <span class="keyword">in</span> node.irs:</span><br><span class="line">                <span class="keyword">if</span> <span class="built_in">hasattr</span>(ir, <span class="string">&#x27;destination&#x27;</span>):</span><br><span class="line">                    taintflag = is_tainted(ir.destination, node.function.contract)</span><br><span class="line">                    <span class="keyword">if</span> taintflag <span class="keyword">is</span> <span class="literal">True</span>:</span><br><span class="line">                        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="smallUtils-py"><a href="#smallUtils-py" class="headerlink" title="smallUtils.py"></a>smallUtils.py</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> slither.core.variables.variable <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">from</span> slither.core.declarations.function <span class="keyword">import</span> Function</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_CFGnode_Calls</span>(<span class="params">node</span>):</span></span><br><span class="line">    <span class="string">&#x27;&#x27;&#x27;</span></span><br><span class="line"><span class="string">    :param node: cfg中的call节点</span></span><br><span class="line"><span class="string">    :return: callee</span></span><br><span class="line"><span class="string">    &#x27;&#x27;&#x27;</span></span><br><span class="line">    internalCalls = node.internal_calls</span><br><span class="line">    externalCalls = []</span><br><span class="line">    <span class="keyword">for</span> external_call <span class="keyword">in</span> node.high_level_calls:</span><br><span class="line">        external_contract, external_function = external_call</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">isinstance</span>(external_function, (Function)):</span><br><span class="line">            externalCalls.append(external_function)</span><br><span class="line">    <span class="keyword">return</span> internalCalls + externalCalls</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getCFG_endNodes</span>(<span class="params">function</span>):</span></span><br><span class="line">    cfgEndNodes = []</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> function.nodes:</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(node.sons) == <span class="number">0</span>:</span><br><span class="line">            cfgEndNodes.append(node)</span><br><span class="line">    <span class="keyword">return</span> cfgEndNodes</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_nodes</span>(<span class="params">n1, n2</span>):</span></span><br><span class="line">    n1.add_son(n2)</span><br><span class="line">    n2.add_father(n1)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_icfgNodes</span>(<span class="params">n1, n2</span>):</span></span><br><span class="line">    n1.add_icfgSon(n2)</span><br><span class="line">    n2.add_icfgFather(n1)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">link_backIcfgNodes</span>(<span class="params">n1, n2</span>):</span></span><br><span class="line">    n1.add_backIcfgSon(n2)</span><br><span class="line">    n2.add_backIcfgFather(n1)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getadjMatrix</span>(<span class="params">startToEndVertexList</span>):</span></span><br><span class="line">    vertexNum = <span class="built_in">len</span>(startToEndVertexList)</span><br><span class="line">    adjMatrix = [[<span class="number">0</span>] * vertexNum <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(vertexNum)]</span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> startToEndVertexList:</span><br><span class="line">        <span class="keyword">for</span> son <span class="keyword">in</span> node.sons:</span><br><span class="line">            adjMatrix[startToEndVertexList.index(node)][startToEndVertexList.index(son)] = <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> adjMatrix</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">getICFGadjMatrix</span>(<span class="params">startToEndVertexList</span>):</span></span><br><span class="line">    vertexNum = <span class="built_in">len</span>(startToEndVertexList)</span><br><span class="line">    adjMatrix = [[<span class="number">0</span>] * vertexNum <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(vertexNum)]</span><br><span class="line">    count = <span class="number">3</span></span><br><span class="line">    <span class="keyword">for</span> node <span class="keyword">in</span> startToEndVertexList:</span><br><span class="line">        <span class="keyword">for</span> son <span class="keyword">in</span> node.sons:</span><br><span class="line">            adjMatrix[startToEndVertexList.index(node)][startToEndVertexList.index(son)] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> son <span class="keyword">in</span> node.icfgSons:</span><br><span class="line">            adjMatrix[startToEndVertexList.index(node)][startToEndVertexList.index(son)] = count</span><br><span class="line">            adjMatrix[startToEndVertexList.index(son)][startToEndVertexList.index(node)] = count-<span class="number">1</span></span><br><span class="line">            count += <span class="number">2</span></span><br><span class="line">    <span class="keyword">return</span> adjMatrix</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">defenseModifier</span>():</span></span><br><span class="line">    defenseModifierList = [<span class="string">&#x27;onlyOwner&#x27;</span>, <span class="string">&#x27;ownerOnly&#x27;</span>, <span class="string">&#x27;isAnOwner&#x27;</span>, <span class="string">&#x27;onlyPartner&#x27;</span>, <span class="string">&#x27;noFromContract&#x27;</span>, <span class="string">&#x27;nonReentrant&#x27;</span>, <span class="string">&#x27;noReentrancy&#x27;</span>, <span class="string">&#x27;isYHT&#x27;</span>, <span class="string">&#x27;onlyHuman&#x27;</span>, <span class="string">&#x27;onlyAdmin&#x27;</span>, <span class="string">&#x27;onlyPlayer&#x27;</span>, <span class="string">&#x27;isWhitelisted&#x27;</span>, <span class="string">&#x27;notContract&#x27;</span>, <span class="string">&#x27;isHuman&#x27;</span>, <span class="string">&#x27;noFromContract&#x27;</span>, <span class="string">&#x27;onlyOwnerOrPartner&#x27;</span>, <span class="string">&#x27;reentrancy&#x27;</span>, <span class="string">&#x27;onlyManager&#x27;</span>, <span class="string">&#x27;onlywhitelisted&#x27;</span>, <span class="string">&#x27;onlyAdministrator&#x27;</span>]</span><br><span class="line">    <span class="keyword">return</span> defenseModifierList</span><br></pre></td></tr></table></figure>
+
+<h2 id="testDFS-py"><a href="#testDFS-py" class="headerlink" title="testDFS.py"></a>testDFS.py</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyDeepGraph</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, vertexNum</span>):</span></span><br><span class="line">        self.vertexNum = vertexNum</span><br><span class="line">        self.adjMetrix = [[<span class="number">0</span>] * vertexNum <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(vertexNum)]</span><br><span class="line">        self.visitedFlag = [<span class="literal">False</span>] * vertexNum</span><br><span class="line">        self.pathStack = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">printMatrix</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">for</span> everyRow <span class="keyword">in</span> self.adjMetrix:</span><br><span class="line">            print(everyRow)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">setadjMetrix</span>(<span class="params">self, real_adjMetrix</span>):</span></span><br><span class="line">        self.adjMetrix = real_adjMetrix</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getMatrixValue</span>(<span class="params">self, row, column</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self.adjMetrix[row][column]</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">getPathofTwoNode</span>(<span class="params">self, start, end</span>):</span></span><br><span class="line">        paths = []</span><br><span class="line">        self.visitedFlag[start] = <span class="literal">True</span></span><br><span class="line">        self.pathStack.append(start)</span><br><span class="line">        self.findPath(start, end, paths)</span><br><span class="line">        <span class="keyword">return</span> paths</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">findPath</span>(<span class="params">self, start, end, paths</span>):</span></span><br><span class="line">        <span class="keyword">if</span> start == end:</span><br><span class="line">            temp = <span class="built_in">list</span>(self.pathStack)</span><br><span class="line">            paths.append(temp)</span><br><span class="line">            self.visitedFlag[self.pathStack[-<span class="number">1</span>]] = <span class="literal">False</span></span><br><span class="line">            self.pathStack.pop()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            unStackedNum = <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(self.vertexNum):</span><br><span class="line">                <span class="keyword">if</span> self.adjMetrix[start][i] <span class="keyword">and</span> self.visitedFlag[i] <span class="keyword">is</span> <span class="literal">False</span>:</span><br><span class="line">                    <span class="comment"># if self.adjMetrix[start][i] &gt; 1:    # 如果这条边是icfg入边，把dummyEnter入栈</span></span><br><span class="line">                    <span class="comment">#     self.recordStack.extend(self.historyStack)</span></span><br><span class="line">                    <span class="comment">#     self.recordStack.append([start, self.adjMetrix[start].index(1)])</span></span><br><span class="line">                    <span class="comment"># # print(&#x27;战神：&#123;&#125;&#x27;.format(len(self.recordStack)))</span></span><br><span class="line">                    unStackedNum += <span class="number">1</span></span><br><span class="line">                    self.visitedFlag[i] = <span class="literal">True</span></span><br><span class="line">                    self.pathStack.append(i)</span><br><span class="line">                    self.findPath(i, end, paths)</span><br><span class="line">                <span class="comment"># if self.adjMetrix[start][i] % 2 == 0 and self.adjMetrix[start][i] != 0:   # 如果这条边是icfg 返回边， self.pathStack.append(栈顶)</span></span><br><span class="line">                <span class="comment">#     if self.recordStack:</span></span><br><span class="line">                <span class="comment">#         self.pathStack.append(self.recordStack[-1][1])</span></span><br><span class="line">                <span class="comment">#         temp = self.recordStack.pop()</span></span><br><span class="line">                <span class="comment">#         self.historyStack.append(temp)</span></span><br><span class="line">                <span class="comment">#         self.findPath(temp[1], end, paths)</span></span><br><span class="line">            self.visitedFlag[self.pathStack[-<span class="number">1</span>]] = <span class="literal">False</span></span><br><span class="line">            self.pathStack.pop()</span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def test():</span></span><br><span class="line"><span class="comment">#     graph = MyDeepGraph(5)</span></span><br><span class="line"><span class="comment">#     adjMetrix = [[0]*5 for i in range(5)]</span></span><br><span class="line"><span class="comment">#     adjMetrix[0][1] = 1</span></span><br><span class="line"><span class="comment">#     adjMetrix[1][2] = 1</span></span><br><span class="line"><span class="comment">#     adjMetrix[2][3] = 1</span></span><br><span class="line"><span class="comment">#     adjMetrix[3][4] = 1</span></span><br><span class="line"><span class="comment">#     #adjMetrix[2][4] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[0][1] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[1][5] = 3</span></span><br><span class="line"><span class="comment">#     # adjMetrix[1][2] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[2][3] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[3][4] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[5][6] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[6][7] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[7][8] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[8][2] = 2</span></span><br><span class="line"><span class="comment">#     # adjMetrix[9][5] = 5</span></span><br><span class="line"><span class="comment">#     # adjMetrix[9][10] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[10][11] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[8][10] = 4</span></span><br><span class="line"><span class="comment">#     # adjMetrix[1][12] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[2][12] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[6][13] = 7</span></span><br><span class="line"><span class="comment">#     # adjMetrix[13][14] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[14][17] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[17][7] = 6</span></span><br><span class="line"><span class="comment">#     # adjMetrix[13][15] = 9</span></span><br><span class="line"><span class="comment">#     # adjMetrix[15][18] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[18][16] = 1</span></span><br><span class="line"><span class="comment">#     # adjMetrix[16][14] = 8</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     graph.setadjMetrix(adjMetrix)</span></span><br><span class="line"><span class="comment">#     graph.printMatrix()</span></span><br><span class="line"><span class="comment">#     paths = graph.getPathofTwoNode(0, 4)</span></span><br><span class="line"><span class="comment">#     print(paths)</span></span><br><span class="line"><span class="comment"># test()</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># def temp():</span></span><br><span class="line"><span class="comment">#     c = &#x27;aaa&#x27;</span></span><br><span class="line"><span class="comment">#     a = [1]</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">#     print(isinstance(c, list))</span></span><br><span class="line"><span class="comment"># temp()</span></span><br><span class="line"></span><br><span class="line">````</span><br><span class="line"></span><br><span class="line"><span class="comment">## ICFG.py</span></span><br><span class="line"></span><br><span class="line">```python</span><br><span class="line"><span class="keyword">from</span> slither.core.declarations.solidity_variables <span class="keyword">import</span> SolidityFunction</span><br><span class="line"><span class="keyword">from</span> slither.core.declarations.function <span class="keyword">import</span> Function</span><br><span class="line"><span class="keyword">from</span> slither.core.callGraph.functionNode <span class="keyword">import</span> FunctionNode</span><br><span class="line"><span class="keyword">from</span> slither.core.variables.variable <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">from</span> slither.analyses.data_dependency.data_dependency <span class="keyword">import</span> is_tainted</span><br><span class="line"><span class="keyword">from</span> slither.detectors.callGraph_cfg_Reentrancy.Graph <span class="keyword">import</span> MyGraph</span><br><span class="line"><span class="keyword">from</span> slither.detectors.ICFG_Reentrancy.smallUtils <span class="keyword">import</span> (get_CFGnode_Calls, getCFG_endNodes, link_nodes, link_icfgNodes, link_backIcfgNodes)</span><br><span class="line"><span class="keyword">from</span> slither.core.cfg.node <span class="keyword">import</span> (Node, NodeType)</span><br><span class="line"><span class="keyword">from</span> slither.solc_parsing.cfg.node <span class="keyword">import</span> NodeSolc</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ICFG</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, slither</span>):</span></span><br><span class="line">        self._slither = slither</span><br><span class="line">        self.allNodes = []</span><br><span class="line">        self.visitedList = []</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">build_ICFG</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="built_in">id</span> = <span class="number">100</span></span><br><span class="line">        <span class="keyword">for</span> function <span class="keyword">in</span> self._slither.functions:</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">not</span> function.is_implemented:</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            <span class="keyword">if</span> function <span class="keyword">in</span> self.visitedList:</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            self.visitedList.append(function)</span><br><span class="line">            <span class="keyword">for</span> node <span class="keyword">in</span> function.nodes:</span><br><span class="line">                callees = get_CFGnode_Calls(node)</span><br><span class="line">                <span class="keyword">if</span> callees:</span><br><span class="line">                    dummInode = NodeSolc(NodeType.DUMMY, <span class="built_in">id</span>)</span><br><span class="line">                    function.addNode(dummInode)</span><br><span class="line">                    dummInode.set_function(function)</span><br><span class="line">                    dummInode.set_sons(node.sons)</span><br><span class="line">                    node.set_sons([])</span><br><span class="line">                    link_nodes(node, dummInode)</span><br><span class="line">                    <span class="built_in">id</span> = <span class="built_in">id</span> + <span class="number">1</span></span><br><span class="line">                <span class="comment"># if any(callee.is_implemented for callee in callees):</span></span><br><span class="line">                <span class="comment">#     link_nodes(node, Node(NodeType.DUMMY, id))</span></span><br><span class="line">                <span class="comment">#     id -= 1</span></span><br><span class="line">                <span class="comment">#     dummyInode = Node(NodeType.DUMMY, id)</span></span><br><span class="line">                <span class="comment">#     dummyInode.set_sons(node.sons)</span></span><br><span class="line">                <span class="comment">#     node.set_sons([])</span></span><br><span class="line">                <span class="comment">#     link_icfgNodes(node, dummyInode)</span></span><br><span class="line">                <span class="comment">#     link_nodes(node, dummyInode)</span></span><br><span class="line">                <span class="keyword">for</span> callee <span class="keyword">in</span> callees:</span><br><span class="line">                    <span class="comment">#print(&#x27;被调用函数的名字：&#123;&#125;&#x27;.format(callee.full_name))</span></span><br><span class="line">                    <span class="comment"># node.add_icfgSon(callee.entry_point)</span></span><br><span class="line">                    <span class="keyword">if</span> callee.entry_point <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">                        <span class="keyword">continue</span></span><br><span class="line">                    <span class="comment"># dummyInode = Node(NodeType.DUMMY, id)</span></span><br><span class="line">                    <span class="comment"># dummyInode.set_fathers(node.sons)</span></span><br><span class="line">                    <span class="comment"># node.set_sons([])</span></span><br><span class="line">                    <span class="comment"># link_nodes(node, dummyInode)</span></span><br><span class="line">                    <span class="comment"># id -= 1</span></span><br><span class="line">                    link_icfgNodes(node, callee.entry_point)</span><br><span class="line">                    callee_cfgEndNodes = getCFG_endNodes(callee)</span><br><span class="line">                    <span class="keyword">for</span> callee_cfgEndNode <span class="keyword">in</span> callee_cfgEndNodes:</span><br><span class="line">                        <span class="comment"># for cfgSon in node.sons:</span></span><br><span class="line">                        link_backIcfgNodes(callee_cfgEndNode, node.sons[<span class="number">0</span>])</span><br><span class="line">            self.allNodes.extend(function.nodes)</span><br></pre></td></tr></table></figure>
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+      
+
+
+    <footer class="post-footer">
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Jason Gao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://xjgao.com/ICFG-Reentrancy/" title="ICFG_Reentrancy">https://xjgao.com/ICFG-Reentrancy/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/hello/" rel="prev" title="hello">
+                  <i class="fa fa-chevron-left"></i> hello
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      const activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      const commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jason Gao</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">24k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22 分钟</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">苏ICP备 2020066748号 </a>
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="//cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@next-theme/pjax@0.4.0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1.16.0/dist/lozad.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/pangu@4.0.7/dist/browser/pangu.min.js"></script>
+
+
+
+
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script><script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '.page-configurations',
+    '.main-inner',
+    '.post-toc-wrap',
+    '.languages',
+    '.pjax'
+  ],
+  analytics: false,
+  cacheBust: false,
+  scrollRestoration: false,
+  scrollTo: !CONFIG.bookmark.enable
+});
+
+document.addEventListener('pjax:success', () => {
+  pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  const hasTOC = document.querySelector('.post-toc');
+  document.querySelector('.sidebar-inner').classList.toggle('sidebar-nav-active', hasTOC);
+  document.querySelector(hasTOC ? '.sidebar-nav-toc' : '.sidebar-nav-overview').click();
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  
+
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+  <script>
+    NProgress.configure({
+      showSpinner: true
+    });
+    NProgress.start();
+    document.addEventListener('readystatechange', () => {
+      if (document.readyState === 'interactive') {
+        NProgress.inc(0.8);
+      }
+      if (document.readyState === 'complete') {
+        NProgress.done();
+      }
+    });
+    document.addEventListener('pjax:send', () => {
+      NProgress.start();
+    });
+    document.addEventListener('pjax:success', () => {
+      NProgress.done();
+    });
+  </script>
+
+  
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script data-pjax>
+  (function() {
+    function leancloudSelector(url) {
+      url = encodeURI(url);
+      return document.getElementById(url).querySelector('.leancloud-visitors-count');
+    }
+
+    function addCount(Counter) {
+      const visitors = document.querySelector('.leancloud_visitors');
+      const url = decodeURI(visitors.id);
+      const title = visitors.dataset.flagTitle;
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          if (results.length > 0) {
+            const counter = results[0];
+            leancloudSelector(url).innerText = counter.time + 1;
+            Counter('put', '/classes/Counter/' + counter.objectId, { time: { '__op': 'Increment', 'amount': 1 } })
+              .catch(error => {
+                console.error('Failed to save visitor count', error);
+              });
+          } else {
+              Counter('post', '/classes/Counter', { title, url, time: 1 })
+                .then(response => response.json())
+                .then(() => {
+                  leancloudSelector(url).innerText = 1;
+                })
+                .catch(error => {
+                  console.error('Failed to create', error);
+                });
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    function showTime(Counter) {
+      const visitors = document.querySelectorAll('.leancloud_visitors');
+      const entries = [...visitors].map(element => {
+        return decodeURI(element.id);
+      });
+
+      Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({ url: { '$in': entries } })))
+        .then(response => response.json())
+        .then(({ results }) => {
+          for (let url of entries) {
+            const target = results.find(item => item.url === url);
+            leancloudSelector(url).innerText = target ? target.time : 0;
+          }
+        })
+        .catch(error => {
+          console.error('LeanCloud Counter Error', error);
+        });
+    }
+
+    const { app_id, app_key, server_url } = {"enable":true,"app_id":"zd2CRlS7RsbH3lz0zC4MTTUw-gzGzoHsz","app_key":"B7IMI4l61GqxqpFt1QvbHnJg","server_url":"https://zd2crls7.lc-cn-n1-shared.com","security":false};
+    function fetchData(api_server) {
+      const Counter = (method, url, data) => {
+        return fetch(`${api_server}/1.1${url}`, {
+          method,
+          headers: {
+            'X-LC-Id'     : app_id,
+            'X-LC-Key'    : app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      if (CONFIG.page.isPost) {
+        if (CONFIG.hostname !== location.hostname) return;
+        addCount(Counter);
+      } else if (document.querySelectorAll('.post-title-link').length >= 1) {
+        showTime(Counter);
+      }
+    }
+
+    const api_server = app_id.slice(-9) === '-MdYXbMMI' ? `https://${app_id.slice(0, 8).toLowerCase()}.api.lncldglobal.com` : server_url;
+
+    if (api_server) {
+      fetchData(api_server);
+    } else {
+      fetch('https://app-router.leancloud.cn/2/route?appId=' + app_id)
+        .then(response => response.json())
+        .then(({ api_server }) => {
+          fetchData('https://' + api_server);
+        });
+    }
+  })();
+</script>
+
+    <div class="pjax">
+
+
+<script>
+NexT.utils.loadComments('#valine-comments', () => {
+  NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
+    new Valine(Object.assign({"enable":true,"appId":"zd2CRlS7RsbH3lz0zC4MTTUw-gzGzoHsz","appKey":"B7IMI4l61GqxqpFt1QvbHnJg","serverURLs":"https://zd2crls7.lc-cn-n1-shared.com","placeholder":"输入你的评论&#13在昵称栏目输入QQ号可以直接获取你的QQ头像&#13添加email可以获得更快的回复速度","avatar":"mm","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
+      el: '#valine-comments',
+      path: "/ICFG-Reentrancy/",
+      serverURLs: "https://zd2crls7.lc-cn-n1-shared.com"
+    }));
+  }, window.Valine);
+});
+</script>
+
+    </div>
+</body>
+</html>
