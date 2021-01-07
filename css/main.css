@@ -587,14 +587,14 @@ figure.highlight::before {
   width: 12px;
 }
 code,
-kbd,
+kbd {
+  background: #f9f2f4;
+  color: #c7254e;
+}
 figure.highlight,
 pre {
   background: var(--highlight-background);
   color: var(--highlight-foreground);
-}
-figure.highlight,
-pre {
   line-height: 1.6;
   margin: 0 auto 20px;
 }
@@ -3092,7 +3092,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #bd78ff;
+  background: #ff951b;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3131,10 +3131,12 @@ hr {
 .logo-line {
   display: none;
 }
+/**
 code {
-  color: #c7254e;
-  background-color: #f9f2f4;
+  color: rgb(199, 37, 78);
+  background-color: rgb(249, 242, 244);
 }
+**/
 .beian img {
   margin-left: 8px;
   margin-right: 8px;
