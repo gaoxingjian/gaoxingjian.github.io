@@ -600,7 +600,7 @@ pre {
 }
 pre,
 code {
-  font-family: consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
+  font-family: monaco, consolas, Menlo, monospace, 'PingFang SC', 'Microsoft YaHei';
 }
 code {
   border-radius: 3px;
@@ -3092,7 +3092,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #5b546a;
+  background: #bd78ff;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3131,12 +3131,10 @@ hr {
 .logo-line {
   display: none;
 }
-/**
 code {
-  color: rgb(199, 37, 78);
-  background-color: rgb(249, 242, 244);
+  color: #c7254e;
+  background-color: #f9f2f4;
 }
-**/
 .beian img {
   margin-left: 8px;
   margin-right: 8px;
