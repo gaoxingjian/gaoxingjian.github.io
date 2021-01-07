@@ -6,7 +6,7 @@
   <link href="https://xjgao.com/atom.xml" rel="self"/>
   
   <link href="https://xjgao.com/"/>
-  <updated>2020-12-12T11:39:25.091Z</updated>
+  <updated>2021-01-07T07:08:53.338Z</updated>
   <id>https://xjgao.com/</id>
   
   <author>
@@ -21,10 +21,10 @@
     <link href="https://xjgao.com/hello/"/>
     <id>https://xjgao.com/hello/</id>
     <published>2020-12-09T06:47:42.000Z</published>
-    <updated>2020-12-12T11:39:25.091Z</updated>
+    <updated>2021-01-07T07:08:53.338Z</updated>
     
     
-    <summary type="html">&lt;h2 id=&quot;hello-world&quot;&gt;&lt;a href=&quot;#hello-world&quot; class=&quot;headerlink&quot; title=&quot;hello world&quot;&gt;&lt;/a&gt;hello world&lt;/h2&gt;</summary>
+    <summary type="html">&lt;h2 id=&quot;hello-world&quot;&gt;hello world&lt;/h2&gt;</summary>
     
     
     
@@ -41,12 +41,31 @@
     <updated>2020-12-10T08:44:23.685Z</updated>
     
     
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.</summary>
     
     
     
     
     <category term="test" scheme="https://xjgao.com/tags/test/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>两种方法实现性别预测</title>
+    <link href="https://xjgao.com/gender-predict/"/>
+    <id>https://xjgao.com/gender-predict/</id>
+    <published>2020-07-07T16:00:00.000Z</published>
+    <updated>2021-01-07T07:31:45.076Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;分别使用&lt;code&gt;基于规则的方法&lt;/code&gt;和&lt;code&gt;基于统计的方法&lt;/code&gt;实现性别预测，本文为《自然语言理解》期末课程设计报告。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="NLP" scheme="https://xjgao.com/categories/nlp/"/>
+    
+    
+    <category term="Python" scheme="https://xjgao.com/tags/python/"/>
     
   </entry>
   

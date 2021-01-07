@@ -2827,6 +2827,13 @@ mark.search-keyword {
   line-height: 2.4;
   margin: 0;
 }
+mjx-container[jax="CHTML"][display="true"],
+.has-jax {
+  overflow: auto hidden;
+}
+mjx-container[display="true"] + br {
+  display: none;
+}
 .use-motion .animated {
   animation-fill-mode: none;
   visibility: inherit;
@@ -3085,7 +3092,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #6cff8f;
+  background: #5b546a;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3124,7 +3131,26 @@ hr {
 .logo-line {
   display: none;
 }
+/**
 code {
-  color: #c7254e;
-  background-color: #f9f2f4;
+  color: rgb(199, 37, 78);
+  background-color: rgb(249, 242, 244);
+}
+**/
+.beian img {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+.post-body .image-caption,
+.post-body .figure .caption {
+  margin-top: -5px;
+}
+figure figcaption {
+  display: none;
+}
+tbody tr:nth-of-type(even) {
+  background: var(--table-row-odd-bg-color);
+}
+tbody tr:nth-of-type(odd) {
+  background: none;
 }
