@@ -55,10 +55,10 @@
     <link href="https://www.xjgao.com/gender-predict/"/>
     <id>https://www.xjgao.com/gender-predict/</id>
     <published>2020-07-07T16:00:00.000Z</published>
-    <updated>2021-01-07T07:31:45.076Z</updated>
+    <updated>2021-01-11T13:56:55.932Z</updated>
     
     
-    <summary type="html">&lt;p&gt;分别使用&lt;code&gt;基于规则的方法&lt;/code&gt;和&lt;code&gt;基于统计的方法&lt;/code&gt;实现性别预测，本文为《自然语言理解》期末课程设计报告。&lt;/p&gt;</summary>
+    <summary type="html">&lt;p&gt;分别使用&lt;code&gt;基于规则的方法&lt;/code&gt;和&lt;code&gt;基于统计的方法&lt;/code&gt;实现性别预测，数据集及代码见&lt;a href=&quot;https://github.com/gaoxingjian/gender-predict&quot;&gt;GitHub&lt;/a&gt;，本文为《自然语言理解》期末课程设计报告。&lt;/p&gt;</summary>
     
     
     
