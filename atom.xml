@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>Jason&#39;s Blog</title>
-  <icon>https://xjgao.com/icon.png</icon>
+  <icon>https://www.xjgao.com/icon.png</icon>
   
-  <link href="https://xjgao.com/atom.xml" rel="self"/>
+  <link href="https://www.xjgao.com/atom.xml" rel="self"/>
   
-  <link href="https://xjgao.com/"/>
+  <link href="https://www.xjgao.com/"/>
   <updated>2021-01-07T07:08:53.338Z</updated>
-  <id>https://xjgao.com/</id>
+  <id>https://www.xjgao.com/</id>
   
   <author>
     <name>Jason Gao</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>hello</title>
-    <link href="https://xjgao.com/hello/"/>
-    <id>https://xjgao.com/hello/</id>
+    <link href="https://www.xjgao.com/hello/"/>
+    <id>https://www.xjgao.com/hello/</id>
     <published>2020-12-09T06:47:42.000Z</published>
     <updated>2021-01-07T07:08:53.338Z</updated>
     
@@ -29,14 +29,14 @@
     
     
     
-    <category term="test" scheme="https://xjgao.com/tags/test/"/>
+    <category term="test" scheme="https://www.xjgao.com/tags/test/"/>
     
   </entry>
   
   <entry>
     <title>Hello World</title>
-    <link href="https://xjgao.com/hello-world/"/>
-    <id>https://xjgao.com/hello-world/</id>
+    <link href="https://www.xjgao.com/hello-world/"/>
+    <id>https://www.xjgao.com/hello-world/</id>
     <published>2020-12-08T02:04:12.169Z</published>
     <updated>2020-12-10T08:44:23.685Z</updated>
     
@@ -46,14 +46,14 @@
     
     
     
-    <category term="test" scheme="https://xjgao.com/tags/test/"/>
+    <category term="test" scheme="https://www.xjgao.com/tags/test/"/>
     
   </entry>
   
   <entry>
     <title>两种方法实现性别预测</title>
-    <link href="https://xjgao.com/gender-predict/"/>
-    <id>https://xjgao.com/gender-predict/</id>
+    <link href="https://www.xjgao.com/gender-predict/"/>
+    <id>https://www.xjgao.com/gender-predict/</id>
     <published>2020-07-07T16:00:00.000Z</published>
     <updated>2021-01-07T07:31:45.076Z</updated>
     
@@ -62,10 +62,10 @@
     
     
     
-    <category term="NLP" scheme="https://xjgao.com/categories/nlp/"/>
+    <category term="NLP" scheme="https://www.xjgao.com/categories/nlp/"/>
     
     
-    <category term="Python" scheme="https://xjgao.com/tags/python/"/>
+    <category term="Python" scheme="https://www.xjgao.com/tags/python/"/>
     
   </entry>
   
