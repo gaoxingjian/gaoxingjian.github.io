@@ -1,1 +1,3 @@
 # Cute
+
+![QR](qr.jpg)
