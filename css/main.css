@@ -1774,7 +1774,7 @@ pre code {
   width: 100%;
 }
 .with-love {
-  color: #f06292;
+  color: #ff0000;
   display: inline-block;
   margin: 0 5px;
   animation: icon-animate 1.33s ease-in-out infinite;
@@ -3092,7 +3092,7 @@ hr {
   transition: all 0.2s ease-in-out;
 }
 .links-of-author a::before {
-  background: #998842;
+  background: #cd4faa;
   display: inline-block;
   margin-right: 3px;
   transform: translateY(-2px);
@@ -3145,12 +3145,6 @@ code {
 }
 figure figcaption {
   display: none;
-}
-tbody tr:nth-of-type(even) {
-  background: var(--table-row-odd-bg-color);
-}
-tbody tr:nth-of-type(odd) {
-  background: none;
 }
 @media (prefers-color-scheme: dark) {
   code {

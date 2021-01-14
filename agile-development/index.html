@@ -26,16 +26,21 @@
     var NexT = window.NexT || {};
     var CONFIG = {"hostname":"www.xjgao.com","root":"/","images":"/images","scheme":"Mist","version":"8.1.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":true,"pangu":true,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}};
   </script>
-<meta property="og:type" content="website">
-<meta property="og:title" content="Jason&#39;s Blog">
-<meta property="og:url" content="https://www.xjgao.com/archives/2020/12/index.html">
+<meta name="description" content="瀑布模型在以前人们用的最多，它本质上分为几个步骤，例如我们第一步是研究可行性，第二步是需求分析，第三步是软件设计，第四步是软件编码，第五步是软件测试，第六步是软件部署；敏捷开发是近些年兴起的一种软件开发与管理的思想，以其灵活性、易操作性得到软件行业的广泛关注；瀑布模型与敏捷开发有着本质区别。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="瀑布模型与敏捷开发">
+<meta property="og:url" content="https://www.xjgao.com/agile-development/index.html">
 <meta property="og:site_name" content="Jason&#39;s Blog">
+<meta property="og:description" content="瀑布模型在以前人们用的最多，它本质上分为几个步骤，例如我们第一步是研究可行性，第二步是需求分析，第三步是软件设计，第四步是软件编码，第五步是软件测试，第六步是软件部署；敏捷开发是近些年兴起的一种软件开发与管理的思想，以其灵活性、易操作性得到软件行业的广泛关注；瀑布模型与敏捷开发有着本质区别。">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-01-14T12:58:00.385Z">
 <meta property="article:author" content="Jason Gao">
+<meta property="article:tag" content="other">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://www.xjgao.com/archives/2020/12/">
+<link rel="canonical" href="https://www.xjgao.com/agile-development/">
 
 
 <script data-pjax class="page-configurations">
@@ -43,11 +48,11 @@
   CONFIG.page = {
     sidebar: "",
     isHome : false,
-    isPost : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script><script src="/lib/fireworks.js"></script>
-<title>归档 | Jason's Blog</title>
+<title>瀑布模型与敏捷开发 | Jason's Blog</title>
   
 
 
@@ -172,7 +177,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -185,6 +190,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <section class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%80%91%E5%B8%83%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">瀑布模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%8F%E6%8D%B7%E5%BC%80%E5%8F%91"><span class="nav-number">2.</span> <span class="nav-text">敏捷开发</span></a></li></ol></div>
         </section>
         <!--/noindex-->
 
@@ -200,14 +206,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">2</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -264,70 +270,200 @@
 </noscript>
 
 
-    <div class="main-inner archive posts-collapse">
+    <div class="main-inner post posts-expand">
 
 
   
-  
-  
-  <div class="post-block">
-    <div class="post-content">
-      <div class="collection-title">
-        <span class="collection-header">嗯..! 目前共计 3 篇日志。 继续努力。</span>
-      </div>
 
-      
-    <div class="collection-year">
-      <span class="collection-header">2020</span>
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xjgao.com/agile-development/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Jason Gao">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jason's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          瀑布模型与敏捷开发
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2020-05-30 00:00:00" itemprop="dateCreated datePublished" datetime="2020-05-30T00:00:00+08:00">2020-05-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/software-engineering/" itemprop="url" rel="index"><span itemprop="name">软件工程</span></a>
+        </span>
+    </span>
+
+  
+    <span id="/agile-development/" class="post-meta-item leancloud_visitors" data-flag-title="瀑布模型与敏捷开发" title="阅读次数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span class="leancloud-visitors-count"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+    <span class="post-meta-item-icon">
+      <i class="far fa-comment"></i>
+    </span>
+    <span class="post-meta-item-text">Valine：</span>
+  
+    <a title="valine" href="/agile-development/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/agile-development/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>1.6k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>瀑布模型在以前人们用的最多，它本质上分为几个步骤，例如我们第一步是研究可行性，第二步是需求分析，第三步是软件设计，第四步是软件编码，第五步是软件测试，第六步是软件部署；敏捷开发是近些年兴起的一种软件开发与管理的思想，以其灵活性、易操作性得到软件行业的广泛关注；瀑布模型与敏捷开发有着本质区别。</p>
+<a id="more"></a>
+<h2 id="瀑布模型">瀑布模型</h2>
+<p>在执行瀑布模型的时候，我们必须一步一步的做，也就是说必须先完成软件需求分析才可以进行软件设计，而且在进行一步的时候不能回滚到上一步，并且必须尊重上一步的工作结果。也就是说在你需求分析完了以后，我们就必须要开始设计，而且设计过程中不能更改需求，设计进行完了以后必须要进行软件实现，在软件编码不成功，不能更改软件设计。然而，一旦不得不更改的时候，就需要回滚整个瀑布模型。如果一个产品经理一旦更改需求，就意味前功尽弃。</p>
+<p><strong>瀑布模型比较固化死板，但是通过瀑布模型构造的软件bug非常少，因为他在发布前已经进行了充分的测试修正，它的所有已知的问题解决才会完成发布。</strong></p>
+<p>直到今天，很多应用于企业的软件项目都使用瀑布模型开发，微软的Windows xp就是通过瀑布模型构造的，我们知道xp发布了以后这么多年，好像没有加什么新的功能，它的功能都是之前需求分析出来的的结果。因为如果微软要加新功能的话，就要重新去需求分析，重新编码。于是，在几年后微软又接着发布了Windows Vista、Windows 7。在发布下一个版本的软件的时候，他们往往会参考上一个版本的一些结果，但是并不是对上一个版本的修改。他可能沿用了很多老代码，但那是一个新的项目，完整的走了一遍瀑布模型周期的。</p>
+<p>然而，在今天新的市场需求可能会在几星期内出现。比如，大家发现某种游戏非常好玩。可能几星期后就会有某些公司抄袭做一款很像的游戏，可能又在几星期后这种游戏突然就没有人玩。在如此频繁的需求变更的情况下，如果使用瀑布模型开发软件就太难跟上市场变化了，瀑布模型最大的缺陷就是难以应对市场变化。</p>
+<h2 id="敏捷开发">敏捷开发</h2>
+<p>于是，敏捷软件出现了。它就像是一个基础定律。</p>
+<p>在敏捷软件开发中，主要分为两组成员，第一组成员并不是每天全身心投入到软件开发中的，他们甚至都不属于团队的一部分，他们每天要做的事就是不仅为软件开发的过程提建议并划分优先级，他们可能是老板，可能是产品经理，也可能是一位用户。第二组成员每天都需要全身心的投入进去，他们要按照第一组成员给他们提出来的bug、任务按照优先级排好，之后优先去处理一些优先级高的任务。敏捷开发模型中有一个固定的周期。这个周期是整个团队在最初协商好的，一般这个周期是俩星期到四个星期。一旦市场需求发生了变更，很快就会有机组成员提出，然后就要加到下一个周期中的任务单。</p>
+<p>经常有的软件小bug不断，这是因为市场需求在不断变更，每一个周期里都会有新的任务加任务单，永远不可能把所有的任务都处理完，团队只会优先处理那些优先级高的。处理完了，就是一个发布周期。</p>
+<p>就比如现在的Windows 10，很多人反馈说小bug不断。微软是知道的，这些都在他们的任务单里，只不过这些任务可能优先级比较低。比他们团队在优先处理一些更严重的错误。</p>
+<p>Windows里内置一个应用，叫做反馈。我们可以在反馈中，给Windows 10提建议或者给别的建议点赞，这个应用在之前的Windows是没有的，并不是微软喜欢倾听了，其实是因为他们采用敏捷开发了。</p>
+<p>敏捷是能够满足现在的市场需求，相比瀑布模型那种高风险的投资模型在经济上也非常具有优势。以前我们平常用的几乎所有的互联网软件，手机上的App，平时玩的游戏都是使用敏捷模型开发，我们知道我们在玩游戏的时候可能今天只能玩三维，明天团队就会告诉我们今天只能玩第三视角，后天就会告诉我们也能玩第一视角了。</p>
+<p><strong>现在好多项目都在采用敏捷模型。这是因为随着技术的发展，软件开发周期越来越短，竞争对手应对市场需求变得越来越快。每个人都在图快，在每个人都希望能够快速把握市场的情况下，敏捷模型才会突然流行起来。</strong></p>
+
     </div>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-09T14:47:42+08:00"
-              content="2020-12-09">
-          12-09
-        </time>
-      </div>
-
-      <div class="post-title">
-          <a class="post-title-link" href="/hello/" itemprop="url">
-            <span itemprop="name">hello</span>
-          </a>
-      </div>
-
+    
+    
+    
       
-    </header>
-  </article>
 
-  <article itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-      <div class="post-meta-container">
-        <time itemprop="dateCreated"
-              datetime="2020-12-08T10:04:12+08:00"
-              content="2020-12-08">
-          12-08
-        </time>
+
+    <footer class="post-footer">
+          <div class="reward-container">
+  <div></div>
+  <button onclick="document.querySelector('.post-reward').classList.toggle('active');">
+    赞赏
+  </button>
+  <div class="post-reward">
+      <div>
+        <img src="/images/wechatpay.jpg" alt="Jason Gao 微信">
+        <span>微信</span>
+      </div>
+      <div>
+        <img src="/images/alipay.jpg" alt="Jason Gao 支付宝">
+        <span>支付宝</span>
       </div>
 
-      <div class="post-title">
-          <a class="post-title-link" href="/hello-world/" itemprop="url">
-            <span itemprop="name">Hello World</span>
-          </a>
-      </div>
-
-      
-    </header>
-  </article>
-
-
-    </div>
   </div>
-  
-  
-  
+</div>
 
+          
+
+<div class="post-copyright">
+<ul>
+  <li class="post-copyright-author">
+      <strong>本文作者： </strong>Jason Gao
+  </li>
+  <li class="post-copyright-link">
+      <strong>本文链接：</strong>
+      <a href="https://www.xjgao.com/agile-development/" title="瀑布模型与敏捷开发">https://www.xjgao.com/agile-development/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+          <div class="followme">
+  <span>欢迎关注我的其它发布渠道</span>
+
+  <div class="social-list">
+
+      <div class="social-item">
+        <a target="_blank" class="social-link" href="/atom.xml">
+          <span class="icon">
+            <i class="fa fa-rss"></i>
+          </span>
+
+          <span class="label">RSS</span>
+        </a>
+      </div>
+  </div>
+</div>
+
+          <div class="post-tags">
+              <a href="/tags/other/" rel="tag"><i class="fa fa-tag"></i> other</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/gender-predict/" rel="next" title="两种方法实现性别预测">
+                  两种方法实现性别预测 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -368,13 +504,13 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">12k</span>
+    <span title="站点总字数">9k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11 分钟</span>
+    <span title="站点阅读时长">9 分钟</span>
   </span>
 </div>
 <div class="busuanzi-count">
@@ -584,13 +720,20 @@ NexT.utils.loadComments('#valine-comments', () => {
   NexT.utils.getScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', () => {
     new Valine(Object.assign({"enable":true,"appId":"zd2CRlS7RsbH3lz0zC4MTTUw-gzGzoHsz","appKey":"B7IMI4l61GqxqpFt1QvbHnJg","serverURLs":"https://zd2crls7.lc-cn-n1-shared.com","placeholder":"在昵称栏目输入QQ号再评论可以获取你的QQ头像～","avatar":"monsterid","meta":["nick","mail","link"],"pageSize":10,"lang":"zh-CN","visitor":false,"comment_count":true,"recordIP":true,"enableQQ":true,"requiredFields":[]}, {
       el: '#valine-comments',
-      path: "/archives/2020/12/",
+      path: "/agile-development/",
       serverURLs: "https://zd2crls7.lc-cn-n1-shared.com"
     }));
   }, window.Valine);
 });
 </script>
-
+<script>
+  var trs = document.querySelectorAll("tr.header")
+  if(trs.length > 0) {
+    for(let i=0; i<trs.length; i++) {
+      trs[i].classList.remove("header")
+    }
+  }
+</script>
     </div>
 </body>
 </html>

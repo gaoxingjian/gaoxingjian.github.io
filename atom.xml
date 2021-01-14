@@ -6,7 +6,7 @@
   <link href="https://www.xjgao.com/atom.xml" rel="self"/>
   
   <link href="https://www.xjgao.com/"/>
-  <updated>2021-01-07T07:08:53.338Z</updated>
+  <updated>2021-01-14T12:41:36.953Z</updated>
   <id>https://www.xjgao.com/</id>
   
   <author>
@@ -17,45 +17,11 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>hello</title>
-    <link href="https://www.xjgao.com/hello/"/>
-    <id>https://www.xjgao.com/hello/</id>
-    <published>2020-12-09T06:47:42.000Z</published>
-    <updated>2021-01-07T07:08:53.338Z</updated>
-    
-    
-    <summary type="html">&lt;h2 id=&quot;hello-world&quot;&gt;hello world&lt;/h2&gt;</summary>
-    
-    
-    
-    
-    <category term="test" scheme="https://www.xjgao.com/tags/test/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Hello World</title>
-    <link href="https://www.xjgao.com/hello-world/"/>
-    <id>https://www.xjgao.com/hello-world/</id>
-    <published>2020-12-08T02:04:12.169Z</published>
-    <updated>2020-12-10T08:44:23.685Z</updated>
-    
-    
-    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot;&gt;GitHub&lt;/a&gt;.</summary>
-    
-    
-    
-    
-    <category term="test" scheme="https://www.xjgao.com/tags/test/"/>
-    
-  </entry>
-  
-  <entry>
     <title>两种方法实现性别预测</title>
     <link href="https://www.xjgao.com/gender-predict/"/>
     <id>https://www.xjgao.com/gender-predict/</id>
     <published>2020-07-07T16:00:00.000Z</published>
-    <updated>2021-01-11T13:56:55.932Z</updated>
+    <updated>2021-01-14T12:41:36.953Z</updated>
     
     
     <summary type="html">&lt;p&gt;分别使用&lt;code&gt;基于规则的方法&lt;/code&gt;和&lt;code&gt;基于统计的方法&lt;/code&gt;实现性别预测，数据集及代码见&lt;a href=&quot;https://github.com/gaoxingjian/gender-predict&quot;&gt;GitHub&lt;/a&gt;，本文为《自然语言理解》期末课程设计报告。&lt;/p&gt;</summary>
@@ -65,7 +31,26 @@
     <category term="NLP" scheme="https://www.xjgao.com/categories/nlp/"/>
     
     
-    <category term="Python" scheme="https://www.xjgao.com/tags/python/"/>
+    <category term="python" scheme="https://www.xjgao.com/tags/python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>瀑布模型与敏捷开发</title>
+    <link href="https://www.xjgao.com/agile-development/"/>
+    <id>https://www.xjgao.com/agile-development/</id>
+    <published>2020-05-29T16:00:00.000Z</published>
+    <updated>2021-01-14T12:58:00.385Z</updated>
+    
+    
+    <summary type="html">&lt;p&gt;瀑布模型在以前人们用的最多，它本质上分为几个步骤，例如我们第一步是研究可行性，第二步是需求分析，第三步是软件设计，第四步是软件编码，第五步是软件测试，第六步是软件部署；敏捷开发是近些年兴起的一种软件开发与管理的思想，以其灵活性、易操作性得到软件行业的广泛关注；瀑布模型与敏捷开发有着本质区别。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="软件工程" scheme="https://www.xjgao.com/categories/software-engineering/"/>
+    
+    
+    <category term="other" scheme="https://www.xjgao.com/tags/other/"/>
     
   </entry>
   

@@ -1,6 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>瀑布模型与敏捷开发</title>
+    <url>/agile-development/</url>
+    <content><![CDATA[<p>瀑布模型在以前人们用的最多，它本质上分为几个步骤，例如我们第一步是研究可行性，第二步是需求分析，第三步是软件设计，第四步是软件编码，第五步是软件测试，第六步是软件部署；敏捷开发是近些年兴起的一种软件开发与管理的思想，以其灵活性、易操作性得到软件行业的广泛关注；瀑布模型与敏捷开发有着本质区别。</p>
+<a id="more"></a>
+<h2 id="瀑布模型">瀑布模型</h2>
+<p>在执行瀑布模型的时候，我们必须一步一步的做，也就是说必须先完成软件需求分析才可以进行软件设计，而且在进行一步的时候不能回滚到上一步，并且必须尊重上一步的工作结果。也就是说在你需求分析完了以后，我们就必须要开始设计，而且设计过程中不能更改需求，设计进行完了以后必须要进行软件实现，在软件编码不成功，不能更改软件设计。然而，一旦不得不更改的时候，就需要回滚整个瀑布模型。如果一个产品经理一旦更改需求，就意味前功尽弃。</p>
+<p><strong>瀑布模型比较固化死板，但是通过瀑布模型构造的软件bug非常少，因为他在发布前已经进行了充分的测试修正，它的所有已知的问题解决才会完成发布。</strong></p>
+<p>直到今天，很多应用于企业的软件项目都使用瀑布模型开发，微软的Windows xp就是通过瀑布模型构造的，我们知道xp发布了以后这么多年，好像没有加什么新的功能，它的功能都是之前需求分析出来的的结果。因为如果微软要加新功能的话，就要重新去需求分析，重新编码。于是，在几年后微软又接着发布了Windows Vista、Windows 7。在发布下一个版本的软件的时候，他们往往会参考上一个版本的一些结果，但是并不是对上一个版本的修改。他可能沿用了很多老代码，但那是一个新的项目，完整的走了一遍瀑布模型周期的。</p>
+<p>然而，在今天新的市场需求可能会在几星期内出现。比如，大家发现某种游戏非常好玩。可能几星期后就会有某些公司抄袭做一款很像的游戏，可能又在几星期后这种游戏突然就没有人玩。在如此频繁的需求变更的情况下，如果使用瀑布模型开发软件就太难跟上市场变化了，瀑布模型最大的缺陷就是难以应对市场变化。</p>
+<h2 id="敏捷开发">敏捷开发</h2>
+<p>于是，敏捷软件出现了。它就像是一个基础定律。</p>
+<p>在敏捷软件开发中，主要分为两组成员，第一组成员并不是每天全身心投入到软件开发中的，他们甚至都不属于团队的一部分，他们每天要做的事就是不仅为软件开发的过程提建议并划分优先级，他们可能是老板，可能是产品经理，也可能是一位用户。第二组成员每天都需要全身心的投入进去，他们要按照第一组成员给他们提出来的bug、任务按照优先级排好，之后优先去处理一些优先级高的任务。敏捷开发模型中有一个固定的周期。这个周期是整个团队在最初协商好的，一般这个周期是俩星期到四个星期。一旦市场需求发生了变更，很快就会有机组成员提出，然后就要加到下一个周期中的任务单。</p>
+<p>经常有的软件小bug不断，这是因为市场需求在不断变更，每一个周期里都会有新的任务加任务单，永远不可能把所有的任务都处理完，团队只会优先处理那些优先级高的。处理完了，就是一个发布周期。</p>
+<p>就比如现在的Windows 10，很多人反馈说小bug不断。微软是知道的，这些都在他们的任务单里，只不过这些任务可能优先级比较低。比他们团队在优先处理一些更严重的错误。</p>
+<p>Windows里内置一个应用，叫做反馈。我们可以在反馈中，给Windows 10提建议或者给别的建议点赞，这个应用在之前的Windows是没有的，并不是微软喜欢倾听了，其实是因为他们采用敏捷开发了。</p>
+<p>敏捷是能够满足现在的市场需求，相比瀑布模型那种高风险的投资模型在经济上也非常具有优势。以前我们平常用的几乎所有的互联网软件，手机上的App，平时玩的游戏都是使用敏捷模型开发，我们知道我们在玩游戏的时候可能今天只能玩三维，明天团队就会告诉我们今天只能玩第三视角，后天就会告诉我们也能玩第一视角了。</p>
+<p><strong>现在好多项目都在采用敏捷模型。这是因为随着技术的发展，软件开发周期越来越短，竞争对手应对市场需求变得越来越快。每个人都在图快，在每个人都希望能够快速把握市场的情况下，敏捷模型才会突然流行起来。</strong></p>
+]]></content>
+      <categories>
+        <category>软件工程</category>
+      </categories>
+      <tags>
+        <tag>other</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>两种方法实现性别预测</title>
     <url>/gender-predict/</url>
     <content><![CDATA[<p>分别使用<code>基于规则的方法</code>和<code>基于统计的方法</code>实现性别预测，数据集及代码见<a href="https://github.com/gaoxingjian/gender-predict">GitHub</a>，本文为《自然语言理解》期末课程设计报告。</p>
@@ -32,12 +58,21 @@
 </ul>
 <h3 id="算法设计">2. 算法设计</h3>
 <ul>
-<li><p>方法一：基于规则的方法。<span class="math inline">\(X_i\)</span>为人称代词：他、她、它。 <span class="math display">\[
-P(X_i)=\frac{包含name的段落中X_i的个数/包含name的段落的个数}{包含X_i的段落的个数/段落总数}
-\]</span> <span class="math inline">\(P(X_i)\)</span>最大的，就是对应的性别。</p></li>
-<li><p>方法二：基于统计的方法。朴素贝叶斯算法是一种具有一定的发现规律能力的数据挖掘算法，并且具有分类能力，其基本假设是所有特征是相互独立的，将这种特点应用到性别预测中可以取得良好的效果。具体的，从人名识别的角度来说，一个人名只存在两种可能:“男”和“女”，这样贝叶斯算法就从概率的角度对一个人名是男是女进行了阐明。对于一个分类问题，如果我们只需要得到其标签，我们只需要求解： <span class="math display">\[
-y_{pred}=\arg \max_{y}P(Y=y)\prod_{i=1}^{n}{P(X_i|Y=y)}
+<li><p>方法一：基于规则的方法。</p>
+<ul>
+<li><span class="math inline">\(X_i\)</span>：人称代词：他、她、它。</li>
+<li><span class="math inline">\(A_i\)</span>：包含name的段落中<span class="math inline">\(X_i\)</span>的个数</li>
+<li><span class="math inline">\(B_i\)</span>：包含<span class="math inline">\(X_i\)</span>的段落的个数</li>
+<li><span class="math inline">\(M\)</span>：包含name的段落的个数</li>
+<li><span class="math inline">\(N\)</span>：段落总数</li>
+</ul>
+<p><span class="math display">\[
+P(X_i)=\frac{A_i/M}{B_i/N}
 \]</span></p>
+<p><span class="math inline">\(P(X_i)\)</span>最大的，就是对应的性别。</p></li>
+<li>方法二：基于统计的方法。朴素贝叶斯算法是一种具有一定的发现规律能力的数据挖掘算法，并且具有分类能力，其基本假设是所有特征是相互独立的，将这种特点应用到性别预测中可以取得良好的效果。具体的，从人名识别的角度来说，一个人名只存在两种可能:“男”和“女”，这样贝叶斯算法就从概率的角度对一个人名是男是女进行了阐明。对于一个分类问题，如果我们只需要得到其标签，我们只需要求解： <span class="math display">\[
+y_{pred}=\arg \max_{y}P(Y=y)\prod_{i=1}^{n}{P(X_i|Y=y)}
+\]</span>
 <ol type="1">
 <li><p>计算每个汉字的男女频率。</p></li>
 <li><p>考虑到预测集中可能会有汉字并没有出现在训练集中，所以我们需要对频率进行Laplace平滑。</p></li>
@@ -87,7 +122,7 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
 </ul></li>
 </ul>
 <figure>
-<img data-src="/gender-predict/rule_result.png" alt="方法一测试结果" /><figcaption aria-hidden="true">方法一测试结果</figcaption>
+<img data-src="/gender-predict/rule_result.png" alt="方法一测试结果" /><figcaption>方法一测试结果</figcaption>
 </figure>
 <ul>
 <li><p>方法二：基于统计的方法。数据集来自网络爬虫，共有<span class="math inline">\(120000\)</span>条样本，将数据集进行划分，<span class="math inline">\(95\%\)</span>为训练集，剩下<span class="math inline">\(5\%\)</span>为测试集。</p>
@@ -97,21 +132,21 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
 <thead>
 <tr class="header">
 <th>变量</th>
-<th style="text-align: left;">解释</th>
+<th>解释</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>id</td>
-<td style="text-align: left;">编号</td>
+<td>编号</td>
 </tr>
 <tr class="even">
 <td>name</td>
-<td style="text-align: left;">名字</td>
+<td>名字</td>
 </tr>
 <tr class="odd">
 <td>gender</td>
-<td style="text-align: left;">性别。0表示女生，1表示男生。</td>
+<td>性别。0表示女生，1表示男生。</td>
 </tr>
 </tbody>
 </table></li>
@@ -122,7 +157,7 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
 <p>因数据量较大，这里仅展示测试集后<span class="math inline">\(20\)</span>个人名预测结果，测试集总体预测准确率为<span class="math inline">\(83.06\%\)</span>。</p></li>
 </ul>
 <figure>
-<img data-src="/gender-predict/statistics_result.png" alt="方法二测试结果" /><figcaption aria-hidden="true">方法二测试结果</figcaption>
+<img data-src="/gender-predict/statistics_result.png" alt="方法二测试结果" /><figcaption>方法二测试结果</figcaption>
 </figure>
 <h2 id="四实验结果分析">四、实验结果分析</h2>
 <p>基于规则的方法进行性别预测具有简洁，概括能力强等优点，在本实验中无需语料库，可以适用于海量的文章中人物性别预测。但准确度有时不如基于统计的方法。</p>
@@ -136,72 +171,7 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
         <category>NLP</category>
       </categories>
       <tags>
-        <tag>Python</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>hello</title>
-    <url>/hello/</url>
-    <content><![CDATA[<h2 id="hello-world">hello world</h2>
-<a id="more"></a>
-<p>asdasd😄撒打算的<code>asdasd</code>撒打算 <code>阿斯顿</code> asd <img data-src="/hello/avatar.jpg" alt="test" /></p>
-<table>
-<thead>
-<tr class="header">
-<th>阿斯顿</th>
-<th>阿斯顿</th>
-<th>阿斯顿</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>阿斯顿</td>
-<td>爱上</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>爱上</td>
-<td></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% gp 6-2 %&#125;</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">&#123;% endgp %&#125;</span><br></pre></td></tr></table></figure>
-<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div></div><div class="group-picture-row"><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div></div><div class="group-picture-row"><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div></div></div>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% gp 5-3 %&#125;</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">![](https:&#x2F;&#x2F;cdn1-t17.techbang.com&#x2F;system&#x2F;attached_images&#x2F;2020&#x2F;05&#x2F;277179&#x2F;original&#x2F;39abbaf3f292fcb1f5406ade609e4214.png)</span><br><span class="line">&#123;% endgp %&#125;</span><br></pre></td></tr></table></figure>
-<div class="group-picture"><div class="group-picture-row"><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div></div><div class="group-picture-row"><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div><div class="group-picture-column"><img data-src="https://cdn1-t17.techbang.com/system/attached_images/2020/05/277179/original/39abbaf3f292fcb1f5406ade609e4214.png" /></div></div></div>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">vendors:</span></span><br><span class="line">  <span class="attr">darkmode_js:</span> <span class="string">https://cdn.jsdelivr.net/npm/darkmode-js/lib/darkmode-js.min.js</span></span><br></pre></td></tr></table></figure>
-<p>or _vendors.yml <figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="attr">darkmode_js:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">darkmode-js</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">1.5</span><span class="number">.7</span></span><br><span class="line">  <span class="attr">file:</span> <span class="string">lib/darkmode-js.min.js</span></span><br></pre></td></tr></table></figure></p>
-<p>vendors.njk <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;%- if theme.canvas_ribbon.enable %&#125;</span><br><span class="line">  &lt;script size&#x3D;&quot;&#123;&#123; theme.canvas_ribbon.size &#125;&#125;&quot; alpha&#x3D;&quot;&#123;&#123; theme.canvas_ribbon.alpha &#125;&#125;&quot; zIndex&#x3D;&quot;&#123;&#123; theme.canvas_ribbon.zIndex &#125;&#125;&quot; src&#x3D;&quot;&#123;&#123; theme.vendors.canvas_ribbon &#125;&#125;&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;%- for name in js_vendors() %&#125;</span><br><span class="line">  &lt;script src&#x3D;&quot;&#123;&#123; url_for(theme.vendors[name]) &#125;&#125;&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&#123;%- endfor %&#125;</span><br><span class="line"></span><br><span class="line">&#123;# Customize darkmode.js - Declaration #&#125;</span><br><span class="line">&#123;%- if theme.darkmode_js.enable %&#125;</span><br><span class="line">  &lt;script src&#x3D;&quot;&#123;&#123; theme.vendors.darkmode_js &#125;&#125;&quot;&gt;&lt;&#x2F;script&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br><span class="line"></span><br><span class="line">&#123;# Customize darkmode.js - Invokation #&#125;</span><br><span class="line">&#123;%- if theme.darkmode_js.enable %&#125;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var options &#x3D; &#123;</span><br><span class="line">  bottom: &#39;64px&#39;, &#x2F;&#x2F; default: &#39;32px&#39;</span><br><span class="line">  right: &#39;unset&#39;, &#x2F;&#x2F; default: &#39;32px&#39;</span><br><span class="line">  left: &#39;32px&#39;, &#x2F;&#x2F; default: &#39;unset&#39;</span><br><span class="line">  time: &#39;0.5s&#39;, &#x2F;&#x2F; default: &#39;0.3s&#39;</span><br><span class="line">  mixColor: &#39;#fff&#39;, &#x2F;&#x2F; default: &#39;#fff&#39;</span><br><span class="line">  backgroundColor: &#39;#fff&#39;,  &#x2F;&#x2F; default: &#39;#fff&#39;</span><br><span class="line">  buttonColorDark: &#39;#100f2c&#39;,  &#x2F;&#x2F; default: &#39;#100f2c&#39;</span><br><span class="line">  buttonColorLight: &#39;#fff&#39;, &#x2F;&#x2F; default: &#39;#fff&#39;</span><br><span class="line">  saveInCookies: true, &#x2F;&#x2F; default: true,</span><br><span class="line">  label: &#39;🌓&#39;, &#x2F;&#x2F; default: &#39;&#39;</span><br><span class="line">  autoMatchOsTheme: true &#x2F;&#x2F; default: true</span><br><span class="line">&#125;</span><br><span class="line">const darkmode &#x3D; new Darkmode(options);</span><br><span class="line">darkmode.showWidget();</span><br><span class="line">&lt;&#x2F;script&gt;</span><br><span class="line">&#123;%- endif %&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>. <a id="more"></a> ## Quick Start</p>
-<h3 id="create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-      <tags>
-        <tag>test</tag>
+        <tag>python</tag>
       </tags>
   </entry>
 </search>
