@@ -44,9 +44,9 @@
 P(X_i)=\frac{A_i/M}{B_i/N}
 \]</span></p>
 <p><span class="math inline">\(P(X_i)\)</span>最大的，就是对应的性别。</p></li>
-<li>方法二：基于统计的方法。朴素贝叶斯算法是一种具有一定的发现规律能力的数据挖掘算法，并且具有分类能力，其基本假设是所有特征是相互独立的，将这种特点应用到性别预测中可以取得良好的效果。具体的，从人名识别的角度来说，一个人名只存在两种可能:“男”和“女”，这样贝叶斯算法就从概率的角度对一个人名是男是女进行了阐明。对于一个分类问题，如果我们只需要得到其标签，我们只需要求解： <span class="math display">\[
+<li><p>方法二：基于统计的方法。朴素贝叶斯算法是一种具有一定的发现规律能力的数据挖掘算法，并且具有分类能力，其基本假设是所有特征是相互独立的，将这种特点应用到性别预测中可以取得良好的效果。具体的，从人名识别的角度来说，一个人名只存在两种可能:“男”和“女”，这样贝叶斯算法就从概率的角度对一个人名是男是女进行了阐明。对于一个分类问题，如果我们只需要得到其标签，我们只需要求解： <span class="math display">\[
 y_{pred}=\arg \max_{y}P(Y=y)\prod_{i=1}^{n}{P(X_i|Y=y)}
-\]</span>
+\]</span></p>
 <ol type="1">
 <li><p>计算每个汉字的男女频率。</p></li>
 <li><p>考虑到预测集中可能会有汉字并没有出现在训练集中，所以我们需要对频率进行Laplace平滑。</p></li>
@@ -96,7 +96,7 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
 </ul></li>
 </ul>
 <figure>
-<img data-src="/gender-predict/rule_result.png" alt="方法一测试结果" /><figcaption>方法一测试结果</figcaption>
+<img data-src="/gender-predict/rule_result.png" alt="方法一测试结果" /><figcaption aria-hidden="true">方法一测试结果</figcaption>
 </figure>
 <ul>
 <li><p>方法二：基于统计的方法。数据集来自网络爬虫，共有<span class="math inline">\(120000\)</span>条样本，将数据集进行划分，<span class="math inline">\(95\%\)</span>为训练集，剩下<span class="math inline">\(5\%\)</span>为测试集。</p>
@@ -131,7 +131,7 @@ y_{pred}=\arg\max_yP(Y=y)P(X_2=1|Y=y)\frac{\prod_{i=1}^nP(X_i=0|Y=y)}{P(X_2=0|Y=
 <p>因数据量较大，这里仅展示测试集后<span class="math inline">\(20\)</span>个人名预测结果，测试集总体预测准确率为<span class="math inline">\(83.06\%\)</span>。</p></li>
 </ul>
 <figure>
-<img data-src="/gender-predict/statistics_result.png" alt="方法二测试结果" /><figcaption>方法二测试结果</figcaption>
+<img data-src="/gender-predict/statistics_result.png" alt="方法二测试结果" /><figcaption aria-hidden="true">方法二测试结果</figcaption>
 </figure>
 <h2 id="四实验结果分析">四、实验结果分析</h2>
 <p>基于规则的方法进行性别预测具有简洁，概括能力强等优点，在本实验中无需语料库，可以适用于海量的文章中人物性别预测。但准确度有时不如基于统计的方法。</p>
